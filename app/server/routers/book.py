@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Depends, Request
 import requests 
-from server.models.book import BookSchema, UpdateBookModel
+from ..models.book import BookSchema, UpdateBookModel
 
 router = APIRouter()
 

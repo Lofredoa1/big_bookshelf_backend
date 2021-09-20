@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
-from server.models.user import UserSchema, UpdateUserModel, UserLoginSchema
-from server.auth.auth_handler import signJWT
+from ..models.user import UserSchema, UpdateUserModel, UserLoginSchema
+from ..auth.auth_handler import signJWT
 
 from server.database import (
     add_user,

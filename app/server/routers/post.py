@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
-from server.models.post import PostSchema
+from ..models.post import PostSchema
 
 router = APIRouter()
 # DELETE _-__________________
