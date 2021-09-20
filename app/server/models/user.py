@@ -7,6 +7,7 @@ class UserSchema(BaseModel):
     username: str = Field(...)
     password: str = Field(...)
     is_active: Optional[bool] = None
+    posts: list 
 
     class Config:
         schema_extra = {
@@ -48,6 +49,18 @@ class UserLoginSchema(BaseModel):
                 "password": "weakpassword"
             }
         }
+
+class UserInDB(UserSchema):
+    hashed_password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
 
 def ResponseModel(data, message):
     return {

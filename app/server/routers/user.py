@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Response
 from fastapi.encoders import jsonable_encoder
 from ..models.user import UserSchema, UpdateUserModel, UserLoginSchema
 from ..auth.auth_handler import signJWT
@@ -38,10 +38,12 @@ async def create_user(user: UserSchema = Body(...)):
 
 # user login
 @router.post("/login")
-async def user_login(user: UserLoginSchema = Body(...)):
+async def user_login(response: Response, user: UserLoginSchema = Body(...)):
     user = jsonable_encoder(user)
     if await check_user(user):
-        return signJWT(user)
+        token = signJWT(user)
+        response.headers["Set-Cookie"]=f"token={token['access_token']}; Path=/; HttpOnly"
+        return {"response": "user logged in"}
     return {
         "error": "Wrong login details!"
     }

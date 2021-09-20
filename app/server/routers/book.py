@@ -1,6 +1,20 @@
-from fastapi import APIRouter, Body, Depends, Request
+from fastapi import APIRouter, Body, Request
+from fastapi.encoders import jsonable_encoder
 import requests 
 from ..models.book import BookSchema, UpdateBookModel
+from ..models.user import (
+    ErrorResponseModel,
+    ResponseModel,
+)
+
+from ..database import (
+    add_book,
+    delete_user,
+    retrieve_user,
+    retrieve_users,
+    update_user,
+)
+
 
 router = APIRouter()
 
@@ -11,11 +25,11 @@ async def book_api_data(request: Request, booksearch):
     return r
 
 ##
-# @router.post("/", response_description="Student data added into the database")
-# async def add_student_data(student: StudentSchema = Body(...)):
-#     student = jsonable_encoder(student)
-#     new_student = await add_student(student)
-#     return ResponseModel(new_student, "Student added successfully.")
+@router.post("/")
+async def add_book_data(book: BookSchema = Body(...)):
+    book = jsonable_encoder(book)
+    new_book = await add_book(book)
+    return ResponseModel(new_book, "Book added successfully.")
 
 
 # @router.get("/", response_description="Students retrieved")

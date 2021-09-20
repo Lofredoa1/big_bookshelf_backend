@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Body
+from typing import Optional
+from fastapi import APIRouter, Body, Cookie
 from fastapi.encoders import jsonable_encoder
 from ..models.post import PostSchema
 
@@ -11,8 +12,6 @@ posts = [
         "content": "Lorem Ipsum ..."
     }
 ]
-
-users = []
 # ________________________________
 
 @router.get("/")
@@ -39,4 +38,12 @@ async def add_post(post: PostSchema) -> dict:
     posts.append(post.dict())
     return {
         "data": "post added."
+    }
+
+@router.post("/getuserposts")
+async def get_users_post(post: PostSchema, token: Optional[str] = Cookie(None)) -> dict:
+    new_post = post
+    
+    return {
+        "data": new_post
     }

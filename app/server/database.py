@@ -8,6 +8,7 @@ database = client.bookshelf
 
 # DB Collections
 user_collection = database.get_collection("user_collection")
+book_collection = database.get_collection("book_collection")
 
 # Helper functions to set up db data
 def user_helper(user) -> dict:
@@ -70,11 +71,13 @@ async def delete_user(id: str):
 #         users.append(user_helper(user))
 #     return users
 
-# # Add a new user into to the database
-# async def add_user(user_data: dict) -> dict:
-#     user = await user_collection.insert_one(user_data)
-#     new_user = await user_collection.find_one({"_id": user.inserted_id})
-#     return user_helper(new_user)
+# Add a new book into to the database
+async def add_book(book_data: dict, id:str) -> dict:
+    user = await user_collection.find_one({"_id": ObjectId(id)})
+    print(user)
+    book = await book_collection.insert_one(book_data)
+    new_book = await book_collection.find_one({"_id": book.inserted_id})
+    return user_helper(new_book)
 
 # # Retrieve a user with a matching ID
 # async def retrieve_user(id: str) -> dict:
