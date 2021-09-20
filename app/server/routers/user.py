@@ -3,14 +3,14 @@ from fastapi.encoders import jsonable_encoder
 from ..models.user import UserSchema, UpdateUserModel, UserLoginSchema
 from ..auth.auth_handler import signJWT
 
-from server.database import (
+from ..database import (
     add_user,
     delete_user,
     retrieve_user,
     retrieve_users,
     update_user,
 )
-from server.models.user import (
+from ..models.user import (
     ErrorResponseModel,
     ResponseModel,
     UserSchema,
