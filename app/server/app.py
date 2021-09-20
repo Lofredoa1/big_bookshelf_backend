@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from server.routers.post import router as PostRouter
-from server.routers.user import router as UserRouter
-from server.routers.book import router as BookRouter
-from server.auth.auth_handler import signJWT
+from .routers.post import router as PostRouter
+from .routers.user import router as UserRouter
+from .routers.book import router as BookRouter
+from .auth.auth_handler import signJWT
 
 app = FastAPI()
 
