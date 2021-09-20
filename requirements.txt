@@ -6,3 +6,4 @@ pydantic[email]
 PyJWT==1.7.1
 passlib[bcrypt]
 requests==2.26.0
+heroku==0.1.4
