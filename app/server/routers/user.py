@@ -42,7 +42,8 @@ async def user_login(response: Response, user: UserLoginSchema = Body(...)):
     user = jsonable_encoder(user)
     if await check_user(user):
         token = signJWT(user)
-        response.headers["Set-Cookie"]=f"token={token['access_token']}; Path=/; HttpOnly"
+        # response.set_cookie(key="token", value=f"token={token}; Path=/; HttpOnly; Domain=app.localhost")
+        response.headers["Set-Cookie"]=f"token={token}; Path=/; HttpOnly"
         return {"response": "user logged in"}
     return {
         "error": "Wrong login details!"

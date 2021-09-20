@@ -5,11 +5,18 @@ from .routers.user import router as UserRouter
 from .routers.book import router as BookRouter
 from .auth.auth_handler import signJWT
 from .models.user import Token
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(PostRouter, tags=["Posts"], prefix="/posts")
 app.include_router(UserRouter, tags=["User"], prefix="/user")

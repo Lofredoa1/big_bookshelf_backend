@@ -18,6 +18,12 @@ posts = [
 async def get_posts() -> dict:
     return { "data": posts }
 
+@router.get("/getuserposts")
+async def get_users_post(token: Optional[str] = Cookie(None)) -> dict:
+    print(token)
+    return {
+        "data": token
+    }
 
 @router.get("/{id}")
 async def get_single_post(id: int) -> dict:
@@ -38,12 +44,4 @@ async def add_post(post: PostSchema) -> dict:
     posts.append(post.dict())
     return {
         "data": "post added."
-    }
-
-@router.post("/getuserposts")
-async def get_users_post(post: PostSchema, token: Optional[str] = Cookie(None)) -> dict:
-    new_post = post
-    
-    return {
-        "data": new_post
     }
