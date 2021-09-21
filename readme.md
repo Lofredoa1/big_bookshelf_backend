@@ -7,10 +7,10 @@ Back-end: Python on Fast API
 
 ### Project Links
 
-- [Back end git]
-- [Front end git]
-- [Back end deployment]
-- [Front end deployment]
+- [Back end git](https://github.com/Lofredoa1/big_bookshelf_backend)
+- [Front end git](https://github.com/Lofredoa1/big_bookshelf_frontend)
+- [Back end deployment](https://big-bookshelf.herokuapp.com/)
+- [Front end deployment](https://big-bookshelf-frontend.vercel.app/)
 
 ### Wireframes and React Architecture
 - Wireframes:

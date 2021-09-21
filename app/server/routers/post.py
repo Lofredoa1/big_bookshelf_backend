@@ -2,6 +2,7 @@ from typing import Optional
 from fastapi import APIRouter, Body, Cookie
 from fastapi.encoders import jsonable_encoder
 from ..models.post import PostSchema, UpdatePostModel, CommentSchema
+from ..auth.auth_handler import signJWT
 from ..models.user import (
     ErrorResponseModel,
     ResponseModel,
@@ -73,6 +74,14 @@ async def delete_post_data(id: str):
 
 # Gets posts only from the local user
 @router.get("/getuserposts")
+async def get_users_post(token: Optional[str] = Cookie(None)) -> dict:
+    print(token)
+    return {
+        "data": token
+    }
+
+# Gets posts only from the local user
+@router.get("/getuserposts1")
 async def get_users_post(token: Optional[str] = Cookie(None)) -> dict:
     print(token)
     return {
