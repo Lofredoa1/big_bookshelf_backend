@@ -7,7 +7,6 @@ class UserSchema(BaseModel):
     username: str = Field(...)
     password: str = Field(...)
     is_active: Optional[bool] = None
-    posts: list 
 
     class Config:
         schema_extra = {

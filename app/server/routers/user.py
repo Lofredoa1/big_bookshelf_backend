@@ -29,15 +29,27 @@ async def check_user(data: UserLoginSchema):
             return True
     return False
 
+# helper function to prevent duplicate usernames
+async def check_username(data: UserSchema):
+    users = await retrieve_users()
+    for user in users:
+        if user['username'] != data['username']:
+            return True
+    return False
+        
 # new user sign-up 
-@router.post("/signup")
+@router.post("/signup", response_description="User successfully created.")
 async def create_user(user: UserSchema = Body(...)):
     user = jsonable_encoder(user)
-    new_user = await add_user(user)
-    return signJWT(new_user)
+    if await check_username(user):
+        new_user = await add_user(user)
+        return signJWT(new_user)
+    return {
+        "error": "Username already exists."
+    }
 
 # user login
-@router.post("/login")
+@router.post("/login", response_description="User successfully logged in.")
 async def user_login(response: Response, user: UserLoginSchema = Body(...)):
     user = jsonable_encoder(user)
     if await check_user(user):
