@@ -25,23 +25,23 @@ async def book_api_data(request: Request, booksearch):
     return r
 
 # Create a new book
-@router.post("/", response_description="Book successfully created.")
+@router.post("/", response_description="Book successfully created")
 async def add_book_data(book: BookSchema = Body(...)):
     book = jsonable_encoder(book)
     new_book = await add_book(book)
-    return ResponseModel(new_book, "Book added successfully.")
+    return ResponseModel(new_book, "Book added successfully")
 
 # Shows all books
-@router.get("/", response_description="All books retrieved.")
+@router.get("/", response_description="All books retrieved")
 async def get_books():
     books = await retrieve_books()
     if books:
-        return ResponseModel(books, "Book data successfully retrieved.")
+        return ResponseModel(books, "Book data successfully retrieved")
     return ResponseModel(books, "Empty list returned")
 
 # Get single book based on ID
-@router.get("/{id}", response_description="Book data successfully retrieved.")
-async def get_book_data(id):
+@router.get("/{id}", response_description="Book data successfully retrieved")
+async def get_single_book(id):
     if len(id) != 24:
         return ErrorResponseModel("An error occurred", 404, "id length must be a 24-character hex string")
     else:
@@ -63,7 +63,7 @@ async def update_book_data(id: str, req: UpdateBookModel = Body(...)):
         return ErrorResponseModel(
             "An error occurred",
             404,
-            "There was an error updating the book data.",
+            "There was an error updating the book data",
         )
 
 # Destroy a book based on ID

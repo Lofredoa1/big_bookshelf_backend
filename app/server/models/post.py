@@ -1,16 +1,49 @@
+from typing import Optional
 from pydantic import BaseModel, Field
 
-
-class PostSchema(BaseModel):
-    id: int = Field(default=None)
-    title: str = Field(...)
+class CommentSchema(BaseModel):
+    username: str = Field(...)
     content: str = Field(...)
-    # username: str
+    likes: int = Field(default=0)
 
     class Config:
         schema_extra = {
             "example": {
-                "title": "New Post",
-                "content": "Post content"
+                "username": "TheGreatBambino",
+                "content": "That would be me.",
+                "likes": 100
             }
         }
+
+class PostSchema(BaseModel):
+    title: str = Field(...)
+    content: str = Field(..., max_length=300)
+    likes: int = Field(default=0)
+    comments: set[CommentSchema] = None
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "title": "Who is the Greatest Baseball Player?",
+                "content": "Everyone comment below.",
+                "likes": 0,
+                "comments": None
+            }
+        }
+
+class UpdatePostModel(BaseModel):
+    title: Optional[str]
+    content: Optional[str]
+    likes: Optional[int]
+    comments: Optional[set]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "title": "Who is the Greatest Baseball Player?",
+                "content": "Everyone comment below.",
+                "likes": 0,
+                "comments": None
+            }
+        }
+
