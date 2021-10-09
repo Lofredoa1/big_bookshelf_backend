@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Response
+from fastapi import APIRouter, Body, Response, HTTPException
 from fastapi.encoders import jsonable_encoder
 from ..models.user import UserSchema, UpdateUserModel, UserLoginSchema
 from ..auth.auth_handler import signJWT
@@ -35,22 +35,26 @@ async def check_username(data: UserSchema):
     if (len(users) < 1):
         return True
     else:
+        print("Step 2", users)
         for user in users:
-            if user['username'] != data['username']:
-                return True
-        return False
+            if data['username'] == user['username']:
+                return False
+            # else:
+            #     print("??????")
+            #     return False
         
 # new user sign-up 
 @router.post("/signup", response_description="User successfully created.")
 async def create_user(user: UserSchema = Body(...)):
     user = jsonable_encoder(user)
-   
+    print("step 1", user)
     if await check_username(user):
         new_user = await add_user(user)
         return signJWT(new_user)
-    return {
-        "error": "Username already exists."
-    }
+    # return {
+    #     "error": "Username already exists."
+    # }
+    raise HTTPException(status_code = 406, detail="Username already exists")
 
 # user login
 @router.post("/login", response_description="User successfully logged in.")
