@@ -35,21 +35,26 @@ async def check_username(data: UserSchema):
     if (len(users) < 1):
         return True
     else:
-        print("Step 2", users)
+        # print("Step 2", users)
+        duplicate = False
         for user in users:
-            if data['username'] == user['username']:
-                return False
-            # else:
-            #     print("??????")
-            #     return False
+            # print(user['username'])
+            if user['username'] == data['username']:
+                duplicate = True
+        if (duplicate == False):
+            return True
+        elif (duplicate == True):
+            return False
+          
         
 # new user sign-up 
 @router.post("/signup", response_description="User successfully created.")
 async def create_user(user: UserSchema = Body(...)):
     user = jsonable_encoder(user)
-    print("step 1", user)
+    # print("step 1", user)
     if await check_username(user):
         new_user = await add_user(user)
+        print("NEW USER", new_user)
         return signJWT(new_user)
     # return {
     #     "error": "Username already exists."
