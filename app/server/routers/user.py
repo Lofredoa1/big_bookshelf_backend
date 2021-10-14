@@ -73,3 +73,9 @@ async def user_login(response: Response, user: UserLoginSchema = Body(...)):
     return {
         "error": "Wrong login details!"
     }
+
+# user logout
+@router.get("/logout", response_description="User successfully logged out.")
+async def logout(response: Response):
+    response.set_cookie(key='token', max_age=0, path='/', httponly=True, domain='app.localhost')
+    return {"message": "User successfully logged out"}

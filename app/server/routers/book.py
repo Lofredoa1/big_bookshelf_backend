@@ -22,7 +22,9 @@ router = APIRouter()
 async def book_api_data(request: Request, booksearch):
     url = f'https://www.googleapis.com/books/v1/volumes?q={booksearch}'
     r = requests.get(url).json()
-    return r
+    print(r)
+    return ResponseModel(r, "Results with matching titles")
+    # return {"message": "Search worked"}
 
 # Create a new book
 @router.post("/", response_description="Book successfully created")

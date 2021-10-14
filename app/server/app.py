@@ -7,9 +7,19 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "https://big-bookshelf.herokuapp.com",
+    "https://big-bookshelf-frontend.vercel.app/",
+    "https://www.googleapis.com/books"
+
+]
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
